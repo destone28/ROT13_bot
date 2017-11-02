@@ -5,7 +5,8 @@
 # is sent to it
 """
 This Bot uses the Updater class to handle the bot.
-First, a few handler functions are defined. Then, those functions are passed to
+First, a few handler functions are defined.
+Then, those functions are passed to
 the Dispatcher and registered at their respective places.
 Then, the bot is started and runs until we press Ctrl-C on the command line.
 Usage:

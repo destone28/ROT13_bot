@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Simple Bot to reply to Telegram messages with the ROT13 translation of your
-# message
-# This program is dedicated to the public domain under the CC0 license.
+# Simple Bot that reply to Telegram messages with a ROT13 translation of what is sent to it
 """
 This Bot uses the Updater class to handle the bot.
 First, a few handler functions are defined. Then, those functions are passed to
 the Dispatcher and registered at their respective places.
 Then, the bot is started and runs until we press Ctrl-C on the command line.
 Usage:
-Basic Echobot example, with added the ROT13 translator function.
+Basic Echobot example, repeats messages.
 Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
@@ -30,13 +28,9 @@ logger = logging.getLogger(__name__)
 # update. Error handlers also receive the raised TelegramError object in error.
 
 def start(bot, update):
-	update.message.reply_text('''Hello, I'm a ROT13 translator!
-Send me a message, and I'll translate it for you in ROT13, one of the first and 
-easier crypto algorithms created ever: with this, secret messages was exchanged 
-by famous people like Giulio Cesare, Augusto e Bernardo Provenzano.
-For more infos:
-	https://en.wikipedia.org/wiki/Caesar_cipher
-    and
+    update.message.reply_text('''Hello, I'm a ROT13 translator! Send me something and I'll translate it for you in Rot13, one of the first and easier crypto algorithms: based on this model people like Giulio Cesare, Augusto and Bernardo Provenzano exchanged their secret messages.
+    More infos about:
+    https://en.wikipedia.org/wiki/Caesar_cipher    and
     https://en.wikipedia.org/wiki/ROT13 ''')
 
 def help(bot, update):
@@ -46,24 +40,23 @@ def echo(bot, update):
     try:
         update.message.reply_text(rot13(str(update.message.text)))
     except UnicodeEncodeError:
-        update.message.reply_text('ROT13 is for alphabetical character, I can''t
- translate. Inserisci le stesse lettere senza accenti! Ah, e non so leggere le emoticon! :-)')
+        update.message.reply_text("I can handle only alphabetical characters, so I can't translate accents. Insert the same letters without accents! And... I can't read emoticons! :-)")
 
 def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))
 
-def rot13(testo):                               #funzione traduzione in rot13
-    alfabeto_min = string.lowercase
-    alfabeto_mai = string.uppercase
-    alfabeto = alfabeto_min + alfabeto_mai
-    alfabeto_rot13_min = alfabeto_min[13:] + alfabeto_min[:13]
-    alfabeto_rot13_mai = alfabeto_mai[13:] + alfabeto_mai[:13]
-    alfabeto_rot13 = alfabeto_rot13_min + alfabeto_rot13_mai
-    return string.translate(testo, string.maketrans(alfabeto, alfabeto_rot13))
+def rot13(text):                     #rot13 translator function
+    alphabet_min = string.lowercase
+    alphabet_mai = string.uppercase
+    alphabet = alphabet_min + alphabet_mai
+    alphabet_rot13_min = alphabet_min[13:] + alphabet_min[:13]
+    alphabet_rot13_mai = alphabet_mai[13:] + alphabet_mai[:13]
+    alphabet_rot13 = alphabet_rot13_min + alphabet_rot13_mai
+    return string.translate(text, string.maketrans(alphabet, alphabet_rot13))
 
 def main():
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater("334782389:AAHvSV8jSsJz1pd1xeDMJlfMmodwr1tO3a8")
+    updater = Updater("YOUR_TOKEN_HERE")
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher

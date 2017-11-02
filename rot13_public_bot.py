@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Simple Bot that reply to Telegram messages with a ROT13 translation of what is sent to it
+# Simple Bot that reply to Telegram messages with a ROT13 translation of what
+# is sent to it
 """
 This Bot uses the Updater class to handle the bot.
 First, a few handler functions are defined. Then, those functions are passed to
@@ -28,10 +29,13 @@ logger = logging.getLogger(__name__)
 # update. Error handlers also receive the raised TelegramError object in error.
 
 def start(bot, update):
-    update.message.reply_text('''Hello, I'm a ROT13 translator! Send me something and I'll translate it for you in Rot13, one of the first and easier crypto algorithms: based on this model people like Giulio Cesare, Augusto and Bernardo Provenzano exchanged their secret messages.
+    update.message.reply_text("""Hello, I'm a ROT13 translator! Send me
+    something and I'll translate it for you in Rot13, one of the first and
+    easier crypto algorithms: based on this model people like Giulio Cesare,
+    Augusto and Bernardo Provenzano exchanged their secret messages.
     More infos about:
     https://en.wikipedia.org/wiki/Caesar_cipher    and
-    https://en.wikipedia.org/wiki/ROT13 ''')
+    https://en.wikipedia.org/wiki/ROT13 """)
 
 def help(bot, update):
     start(bot, update)
@@ -40,7 +44,9 @@ def echo(bot, update):
     try:
         update.message.reply_text(rot13(str(update.message.text)))
     except UnicodeEncodeError:
-        update.message.reply_text("I can handle only alphabetical characters, so I can't translate accents. Insert the same letters without accents! And... I can't read emoticons! :-)")
+        update.message.reply_text("""I can handle only alphabetical characters,
+        so I can't translate accents. Insert the same letters without accents!
+        And... I can't read emoticons! :-)""")
 
 def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))
